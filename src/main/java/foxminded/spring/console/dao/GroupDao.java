@@ -2,12 +2,10 @@ package foxminded.spring.console.dao;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import rowmappers.GroupRowMapper;
 import ua.foxminded.vasilmartsyniuk.consoleapp.Group;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +21,7 @@ public class GroupDao implements Dao<Group> {
     public Optional<Group> get(int groupId) {
         String sql = "SELECT * FROM groups WHERE group_id = ?";
         try {
-            return Optional.ofNullable(jdbcTemplate.queryForObject(sql, new GroupDao.GroupRowMapper(), groupId));
+            return Optional.ofNullable(jdbcTemplate.queryForObject(sql, new GroupRowMapper(), groupId));
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
         }
@@ -32,7 +30,7 @@ public class GroupDao implements Dao<Group> {
     @Override
     public List<Group> getAll() {
         String sql = "SELECT * FROM groups";
-        return jdbcTemplate.query(sql, new GroupDao.GroupRowMapper());
+        return jdbcTemplate.query(sql, new GroupRowMapper());
     }
 
 
@@ -43,24 +41,14 @@ public class GroupDao implements Dao<Group> {
     }
 
     @Override
-    public void update(Group group, String[] params) {
+    public void update(Group group, int groupId) {
         String sql = "UPDATE groups SET group_id = ?, group_name = ? WHERE group_id = ?";
-        jdbcTemplate.update(sql, group.getGroupId(), group.getGroupName());
+        jdbcTemplate.update(sql, group.getGroupId(), group.getGroupName(), groupId);
     }
 
     @Override
     public void delete(int groupId) {
         String sql = "DELETE FROM groups WHERE group_id = ?";
-        jdbcTemplate.update(sql,groupId);
+        jdbcTemplate.update(sql, groupId);
     }
-
-    private static class GroupRowMapper implements RowMapper<Group> {
-        @Override
-        public Group mapRow(ResultSet rs, int rowNum) throws SQLException {
-            int groupId = rs.getInt("group_id");
-            String groupName = rs.getString("group_name");
-            return new Group(groupId, groupName);
-        }
-    }
-
 }

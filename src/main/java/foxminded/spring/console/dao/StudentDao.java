@@ -1,16 +1,18 @@
 package foxminded.spring.console.dao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Repository;
+import rowmappers.StudentRowMapper;
 import ua.foxminded.vasilmartsyniuk.consoleapp.Student;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class StudentDao implements Dao<Student> {
 
     private final JdbcTemplate jdbcTemplate;
@@ -42,25 +44,14 @@ public class StudentDao implements Dao<Student> {
     }
 
     @Override
-    public void update(Student student, String[] params) {
+    public void update(Student student, int studentID) {
         String sql = "UPDATE students SET group_id = ?, first_name = ?, last_name = ? WHERE student_id = ?";
-        jdbcTemplate.update(sql, student.getGroupId(), student.getFirstName(), student.getLastName(), student.getStudentId());
+        jdbcTemplate.update(sql, student.getGroupId(), student.getFirstName(), student.getLastName(), student.getStudentId(), studentID);
     }
 
     @Override
     public void delete(int studentId) {
         String sql = "DELETE FROM students WHERE student_id = ?";
         jdbcTemplate.update(sql, studentId);
-    }
-
-    private static class StudentRowMapper implements RowMapper<Student> {
-        @Override
-        public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
-            int studentId = rs.getInt("student_id");
-            int groupId = rs.getInt("group_id");
-            String firstName = rs.getString("first_name");
-            String lastName = rs.getString("last_name");
-            return new Student(studentId, groupId, firstName, lastName);
-        }
     }
 }

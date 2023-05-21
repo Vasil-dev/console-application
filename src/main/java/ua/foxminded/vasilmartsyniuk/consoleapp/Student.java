@@ -1,6 +1,8 @@
 package ua.foxminded.vasilmartsyniuk.consoleapp;
 
-public class Student {
+import javax.sql.DataSource;
+
+public class Student  {
     private int studentId;
     private int groupId;
     private String firstName;
@@ -12,9 +14,6 @@ public class Student {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
-
-
     public int getStudentId() {
         return studentId;
     }
