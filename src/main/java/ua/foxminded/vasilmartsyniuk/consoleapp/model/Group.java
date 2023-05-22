@@ -1,4 +1,4 @@
-package ua.foxminded.vasilmartsyniuk.consoleapp;
+package ua.foxminded.vasilmartsyniuk.consoleapp.model;
 
 public class Group {
     private int groupId;

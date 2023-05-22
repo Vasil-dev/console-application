@@ -1,4 +1,4 @@
-package ua.foxminded.vasilmartsyniuk.consoleapp;
+package ua.foxminded.vasilmartsyniuk.consoleapp.model;
 
 public class Course {
     private int courseId;

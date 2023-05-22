@@ -1,6 +1,4 @@
-package ua.foxminded.vasilmartsyniuk.consoleapp;
-
-import javax.sql.DataSource;
+package ua.foxminded.vasilmartsyniuk.consoleapp.model;
 
 public class Student  {
     private int studentId;

@@ -1,14 +1,16 @@
-package foxminded.spring.console.dao;
+package ua.foxminded.vasilmartsyniuk.consoleapp.dao;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import rowmappers.GroupRowMapper;
-import ua.foxminded.vasilmartsyniuk.consoleapp.Group;
+import org.springframework.stereotype.Repository;
+import ua.foxminded.vasilmartsyniuk.consoleapp.rowmappers.GroupRowMapper;
+import ua.foxminded.vasilmartsyniuk.consoleapp.model.Group;
 
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class GroupDao implements Dao<Group> {
 
     private final JdbcTemplate jdbcTemplate;

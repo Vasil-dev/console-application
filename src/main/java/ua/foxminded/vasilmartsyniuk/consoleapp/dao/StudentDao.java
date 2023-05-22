@@ -1,13 +1,10 @@
-package foxminded.spring.console.dao;
+package ua.foxminded.vasilmartsyniuk.consoleapp.dao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
-import rowmappers.StudentRowMapper;
-import ua.foxminded.vasilmartsyniuk.consoleapp.Student;
-
-import javax.sql.DataSource;
+import ua.foxminded.vasilmartsyniuk.consoleapp.rowmappers.StudentRowMapper;
+import ua.foxminded.vasilmartsyniuk.consoleapp.model.Student;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,8 +14,8 @@ public class StudentDao implements Dao<Student> {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public StudentDao(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public StudentDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
@@ -46,7 +43,7 @@ public class StudentDao implements Dao<Student> {
     @Override
     public void update(Student student, int studentID) {
         String sql = "UPDATE students SET group_id = ?, first_name = ?, last_name = ? WHERE student_id = ?";
-        jdbcTemplate.update(sql, student.getGroupId(), student.getFirstName(), student.getLastName(), student.getStudentId(), studentID);
+        jdbcTemplate.update(sql, student.getGroupId(), student.getFirstName(), student.getLastName(), studentID);
     }
 
     @Override
