@@ -1,7 +1,7 @@
-package rowmappers;
+package ua.foxminded.vasilmartsyniuk.consoleapp.rowmappers;
 
 import org.springframework.jdbc.core.RowMapper;
-import ua.foxminded.vasilmartsyniuk.consoleapp.Student;
+import ua.foxminded.vasilmartsyniuk.consoleapp.model.Student;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

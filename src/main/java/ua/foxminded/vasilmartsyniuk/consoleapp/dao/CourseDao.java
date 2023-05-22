@@ -1,14 +1,16 @@
-package foxminded.spring.console.dao;
+package ua.foxminded.vasilmartsyniuk.consoleapp.dao;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import rowmappers.CourseRowMapper;
-import ua.foxminded.vasilmartsyniuk.consoleapp.Course;
+import org.springframework.stereotype.Repository;
+import ua.foxminded.vasilmartsyniuk.consoleapp.rowmappers.CourseRowMapper;
+import ua.foxminded.vasilmartsyniuk.consoleapp.model.Course;
 
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class CourseDao implements Dao<Course> {
 
     private final JdbcTemplate jdbcTemplate;

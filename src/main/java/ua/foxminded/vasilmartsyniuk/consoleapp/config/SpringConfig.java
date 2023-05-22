@@ -1,6 +1,7 @@
-package foxminded.spring.console.dao;
+package ua.foxminded.vasilmartsyniuk.consoleapp.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -10,7 +11,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-public class MyTest {
+@ComponentScan("ua.foxminded.vasilmartsyniuk.consoleapp")
+public class SpringConfig {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -28,7 +30,6 @@ public class MyTest {
 
     @Bean
     public PlatformTransactionManager transactionManager() {
-        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(dataSource());
-        return transactionManager;
+        return new DataSourceTransactionManager(dataSource());
     }
 }
