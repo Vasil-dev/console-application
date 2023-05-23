@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan("ua.foxminded.vasilmartsyniuk.consoleapp")
 public class SpringConfig {
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();

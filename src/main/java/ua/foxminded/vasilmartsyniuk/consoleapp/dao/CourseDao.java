@@ -15,8 +15,8 @@ public class CourseDao implements Dao<Course> {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public CourseDao(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public CourseDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
 

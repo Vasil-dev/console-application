@@ -15,8 +15,8 @@ public class GroupDao implements Dao<Group> {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public GroupDao(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public GroupDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override

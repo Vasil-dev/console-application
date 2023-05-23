@@ -7,7 +7,6 @@ public class Group {
     public Group(int groupId, String groupName) {
         this.groupId = groupId;
         this.groupName = groupName;
-
     }
 
     public int getGroupId() {

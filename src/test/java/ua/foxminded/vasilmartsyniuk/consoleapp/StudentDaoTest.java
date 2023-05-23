@@ -63,7 +63,7 @@ class StudentDaoTest {
 
     @Test
     void testCreateStudent() {
-        Student newStudent = new Student(301, 2, "Jane", "Smith");
+        Student newStudent = new Student(2, 2, "Jane", "Smith");
         studentDao.create(newStudent);
 
         List<Student> students = studentDao.getAll();
