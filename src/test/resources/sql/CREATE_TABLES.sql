@@ -1,7 +1,6 @@
-DROP TABLE IF EXISTS students_courses;
+DROP TABLE IF EXISTS students_courses CASCADE;
 
-
-DROP TABLE IF EXISTS groups;
+DROP TABLE IF EXISTS groups CASCADE ;
 
 CREATE TABLE groups
 (
@@ -10,7 +9,7 @@ CREATE TABLE groups
 );
 
 
-DROP TABLE IF EXISTS students;
+DROP TABLE IF EXISTS students CASCADE;
 
 CREATE TABLE students
 (
@@ -20,7 +19,7 @@ CREATE TABLE students
     last_name VARCHAR(255)
 );
 
-DROP TABLE IF EXISTS courses;
+DROP TABLE IF EXISTS courses CASCADE;
 
 CREATE TABLE courses
 (

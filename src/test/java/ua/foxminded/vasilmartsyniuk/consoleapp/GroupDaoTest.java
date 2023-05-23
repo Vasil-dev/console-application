@@ -1,4 +1,4 @@
-package ua.foxminded.vasilmartsyniuk.consoleapp.dao;
+package ua.foxminded.vasilmartsyniuk.consoleapp;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
+import ua.foxminded.vasilmartsyniuk.consoleapp.dao.GroupDao;
 import ua.foxminded.vasilmartsyniuk.consoleapp.model.Group;
 
 import java.util.List;

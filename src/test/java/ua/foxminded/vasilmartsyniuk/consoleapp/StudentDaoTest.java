@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 }))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Sql(
-        scripts = {"/sql/CREATE_TABLES.sql", "/sql/INSERT_DATA.sql"},
+        scripts = {"/sql/CREATE_TABLES.sql", "/sql/INSERT_DATA_STUDENT.sql"},
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
 )
 class StudentDaoTest {
