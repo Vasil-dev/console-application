@@ -7,11 +7,11 @@ import ua.foxminded.vasilmartsyniuk.consoleapp.service.StudentService;
 import java.util.List;
 import java.util.Optional;
 
-public class ImplStudentService implements StudentService {
+public class StudentServiceImpl implements StudentService {
 
     private final StudentDao studentDao;
 
-    public ImplStudentService(StudentDao studentDao) {
+    public StudentServiceImpl(StudentDao studentDao) {
         this.studentDao = studentDao;
     }
 

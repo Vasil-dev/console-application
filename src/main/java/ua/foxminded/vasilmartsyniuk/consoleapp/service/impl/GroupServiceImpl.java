@@ -7,17 +7,17 @@ import ua.foxminded.vasilmartsyniuk.consoleapp.service.GroupService;
 import java.util.List;
 import java.util.Optional;
 
-public class ImplGroupService implements GroupService {
+public class GroupServiceImpl implements GroupService {
 
     private final GroupDao groupDao;
 
-    public ImplGroupService(GroupDao groupDao) {
+    public GroupServiceImpl(GroupDao groupDao) {
         this.groupDao = groupDao;
     }
 
     @Override
-    public Optional<Group> get(int grouptId) {
-        return groupDao.get(grouptId);
+    public Optional<Group> get(int groupId) {
+        return groupDao.get(groupId);
     }
 
     @Override

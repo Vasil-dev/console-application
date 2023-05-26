@@ -7,11 +7,11 @@ import ua.foxminded.vasilmartsyniuk.consoleapp.service.CourseService;
 import java.util.List;
 import java.util.Optional;
 
-public class ImplCourseService implements CourseService {
+public class CourseServiceImpl implements CourseService {
 
     private final CourseDao courseDao;
 
-    public ImplCourseService(CourseDao courseDao) {
+    public CourseServiceImpl(CourseDao courseDao) {
         this.courseDao = courseDao;
     }
 
