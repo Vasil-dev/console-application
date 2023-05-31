@@ -1,4 +1,4 @@
-package ua.foxminded.vasilmartsyniuk.consoleapp;
+package ua.foxminded.vasilmartsyniuk.consoleapp.daotests;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
