@@ -179,7 +179,6 @@ public class ApplicationRunner implements CommandLineRunner {
 
                 System.out.println("Course name: ");
                 String courseName = scanner.nextLine();
-                courseName = scanner.nextLine();
 
                 Course course = new Course(courseId, courseName, null);
                 courseService.create(course);

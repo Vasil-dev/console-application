@@ -20,7 +20,6 @@
 //            DataGenerate dataGenerate = new DataGenerate(jdbcTemplate);
 //            dataGenerate.executeDataGeneration();
 //        } else {
-//            System.out.println("Database is not empty.");
 //        }
 //    }
 //
