@@ -20,10 +20,12 @@ public class ApplicationRunner implements CommandLineRunner {
     private final GroupServiceImpl groupService;
     private final CourseServiceImpl courseService;
 
+
     public ApplicationRunner(StudentServiceImpl studentService, GroupServiceImpl groupService, CourseServiceImpl courseService) {
         this.studentService = studentService;
         this.groupService = groupService;
         this.courseService = courseService;
+
     }
 
 

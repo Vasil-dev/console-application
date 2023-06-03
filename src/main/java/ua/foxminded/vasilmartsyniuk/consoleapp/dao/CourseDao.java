@@ -1,56 +1,65 @@
 package ua.foxminded.vasilmartsyniuk.consoleapp.dao;
 
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
-import ua.foxminded.vasilmartsyniuk.consoleapp.rowmappers.CourseRowMapper;
 import ua.foxminded.vasilmartsyniuk.consoleapp.model.Course;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public class CourseDao implements Dao<Course> {
 
-    private final JdbcTemplate jdbcTemplate;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    public CourseDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public CourseDao(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
-
 
     @Override
     public Optional<Course> get(int courseId) {
-        String sql = "SELECT * FROM courses WHERE course_id = ?";
         try {
-            return Optional.ofNullable(jdbcTemplate.queryForObject(sql, new CourseRowMapper(), courseId));
-        } catch (EmptyResultDataAccessException e) {
+            String jpql = "SELECT c FROM Course c WHERE c.courseId = :courseId";
+            Course course = entityManager.createQuery(jpql, Course.class)
+                    .setParameter("courseId", courseId)
+                    .getSingleResult();
+            return Optional.ofNullable(course);
+        } catch (NoResultException e) {
             return Optional.empty();
         }
     }
 
     @Override
     public List<Course> getAll() {
-        String sql = "SELECT * FROM courses";
-        return jdbcTemplate.query(sql, new CourseRowMapper());
+        String jpql = "SELECT c FROM Course c";
+        return entityManager.createQuery(jpql, Course.class).getResultList();
     }
+
 
     @Override
     public void create(Course course) {
-        String sql = "INSERT INTO courses (course_id, course_name) VALUES (?, ?)";
-        jdbcTemplate.update(sql, course.getCourseId(), course.getCourseName());
+        try {
+            entityManager.merge(course);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     @Override
     public void update(Course course, int courseId) {
-        String sql = "UPDATE courses SET course_id = ?, course_name = ?, course_description = ? WHERE course_id = ?";
-        jdbcTemplate.update(sql,course.getCourseId(), course.getCourseName(), course.getCourseDescription(),courseId);
+       course.setCourseId(courseId);
+       entityManager.merge(course);
     }
 
     @Override
     public void delete(int courseId) {
-        String sql = "DELETE FROM courses WHERE course_id = ? ";
-        jdbcTemplate.update(sql,courseId);
+        Course course = entityManager.find(Course.class,courseId);
+        if (course != null) {
+            entityManager.remove(course);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package ua.foxminded.vasilmartsyniuk.consoleapp.daotests;
 
+import javax.persistence.PersistenceContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +8,11 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
 import ua.foxminded.vasilmartsyniuk.consoleapp.dao.GroupDao;
 import ua.foxminded.vasilmartsyniuk.consoleapp.model.Group;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,12 +30,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroupDaoTest {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
     private GroupDao groupDao;
+    @PersistenceContext
+    private  EntityManager entityManager;
 
     @BeforeEach
     void setUp() {
-        groupDao = new GroupDao(jdbcTemplate);
+        groupDao = new GroupDao(entityManager);
     }
 
     @Test

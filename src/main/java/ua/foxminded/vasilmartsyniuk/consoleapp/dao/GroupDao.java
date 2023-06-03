@@ -1,56 +1,66 @@
 package ua.foxminded.vasilmartsyniuk.consoleapp.dao;
 
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
-import ua.foxminded.vasilmartsyniuk.consoleapp.rowmappers.GroupRowMapper;
 import ua.foxminded.vasilmartsyniuk.consoleapp.model.Group;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
+
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public class GroupDao implements Dao<Group> {
 
-    private final JdbcTemplate jdbcTemplate;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    public GroupDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public GroupDao(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @Override
     public Optional<Group> get(int groupId) {
-        String sql = "SELECT * FROM groups WHERE group_id = ?";
         try {
-            return Optional.ofNullable(jdbcTemplate.queryForObject(sql, new GroupRowMapper(), groupId));
-        } catch (EmptyResultDataAccessException e) {
+            String jpql = "SELECT g FROM Group g WHERE g.groupId = :groupId";
+            Group group = entityManager.createQuery(jpql, Group.class)
+                    .setParameter("groupId", groupId)
+                    .getSingleResult();
+            return Optional.ofNullable(group);
+        } catch (NoResultException e) {
+            // Handle the exception
             return Optional.empty();
         }
     }
 
     @Override
     public List<Group> getAll() {
-        String sql = "SELECT * FROM groups";
-        return jdbcTemplate.query(sql, new GroupRowMapper());
+        String jpql = "SELECT g FROM Group g";
+        return entityManager.createQuery(jpql, Group.class).getResultList();
     }
 
 
     @Override
     public void create(Group group) {
-        String sql = "INSERT INTO groups (group_id, group_name) VALUES (?, ?)";
-        jdbcTemplate.update(sql, group.getGroupId(), group.getGroupName());
+        try {
+            entityManager.merge(group);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void update(Group group, int groupId) {
-        String sql = "UPDATE groups SET group_id = ?, group_name = ? WHERE group_id = ?";
-        jdbcTemplate.update(sql, group.getGroupId(), group.getGroupName(), groupId);
+        group.setGroupId(groupId);
+        entityManager.merge(group);
     }
 
     @Override
     public void delete(int groupId) {
-        String sql = "DELETE FROM groups WHERE group_id = ?";
-        jdbcTemplate.update(sql, groupId);
+        Group group = entityManager.find(Group.class, groupId);
+        if (group != null) {
+            entityManager.remove(group);
+        }
     }
 }

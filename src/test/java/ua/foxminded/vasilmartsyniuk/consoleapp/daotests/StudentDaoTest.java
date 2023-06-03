@@ -1,5 +1,6 @@
 package ua.foxminded.vasilmartsyniuk.consoleapp.daotests;
 
+import javax.persistence.PersistenceContext;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.test.context.jdbc.Sql;
 import ua.foxminded.vasilmartsyniuk.consoleapp.dao.StudentDao;
 import ua.foxminded.vasilmartsyniuk.consoleapp.model.Student;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,9 +36,12 @@ class StudentDaoTest {
     private JdbcTemplate jdbcTemplate;
     private StudentDao studentDao;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @BeforeEach
     void setUp() {
-        studentDao = new StudentDao(jdbcTemplate);
+        studentDao = new StudentDao(entityManager);
     }
 
     @Test
@@ -51,7 +56,7 @@ class StudentDaoTest {
 
     @Test
     void testGetNonExistingStudent() {
-        Optional<Student> student = studentDao.get(999);
+        Optional<Student> student = studentDao.get(2);
         assertFalse(student.isPresent());
     }
 
@@ -63,7 +68,7 @@ class StudentDaoTest {
 
     @Test
     void testCreateStudent() {
-        Student newStudent = new Student(2, 2, "Jane", "Smith");
+        Student newStudent = new Student(2, 2, "Name", "Last Name");
         studentDao.create(newStudent);
 
         List<Student> students = studentDao.getAll();

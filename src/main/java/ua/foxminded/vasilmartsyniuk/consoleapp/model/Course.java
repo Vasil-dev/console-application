@@ -1,22 +1,35 @@
 package ua.foxminded.vasilmartsyniuk.consoleapp.model;
 
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Setter
-@Getter
-@ToString
-
+@Entity
+@Setter @Getter @ToString
+@Table(name = "courses")
 public class Course {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "course_id")
     private int courseId;
+
+    @Column(name = "course_name")
     private String courseName;
+
+    @Column(name = "course_description")
     private String courseDescription;
+
 
 
     public Course(int courseId, String courseName, String courseDescription) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.courseDescription = courseDescription;
+    }
+
+    public Course() {
+
     }
 }
