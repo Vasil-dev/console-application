@@ -1,6 +1,6 @@
 package ua.foxminded.vasilmartsyniuk.consoleapp.daotests;
 
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.test.context.jdbc.Sql;
 import ua.foxminded.vasilmartsyniuk.consoleapp.dao.CourseDao;
 import ua.foxminded.vasilmartsyniuk.consoleapp.model.Course;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 

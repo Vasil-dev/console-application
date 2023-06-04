@@ -1,21 +1,20 @@
 package ua.foxminded.vasilmartsyniuk.consoleapp.dao;
 
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
+import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import ua.foxminded.vasilmartsyniuk.consoleapp.model.Student;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
+@Transactional
 public class StudentDao implements Dao<Student> {
 
     @PersistenceContext
     private EntityManager entityManager;
+
 
     public StudentDao(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -42,16 +41,32 @@ public class StudentDao implements Dao<Student> {
     }
 
 
+//    @Override
+//    public void create(Student student) {
+//        try {
+//            System.out.println("Persisting student: " + student);
+//            entityManager.persist(student);
+//
+//        } catch (PersistenceException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     @Override
     public void create(Student student) {
         try {
-            System.out.println("Persisting student: " + student);
+            Student newStudent = new Student();
+            newStudent.setGroupId(student.getGroupId());
+            newStudent.setFirstName(student.getFirstName());
+            newStudent.setLastName(student.getLastName());
 
-            entityManager.persist(student);
+            entityManager.persist(newStudent);
         } catch (PersistenceException e) {
             e.printStackTrace();
         }
     }
+
+
 
 
     @Override
@@ -68,3 +83,5 @@ public class StudentDao implements Dao<Student> {
         }
     }
 }
+
+

@@ -1,6 +1,6 @@
 package ua.foxminded.vasilmartsyniuk.consoleapp.daotests;
 
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.test.context.jdbc.Sql;
 import ua.foxminded.vasilmartsyniuk.consoleapp.dao.GroupDao;
 import ua.foxminded.vasilmartsyniuk.consoleapp.model.Group;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,6 +60,7 @@ class GroupDaoTest {
 
     @Test
     void testCreateGroup() {
+
         Group newGroup = new Group(2,"name");
         groupDao.create(newGroup);
 

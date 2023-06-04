@@ -1,15 +1,15 @@
 package ua.foxminded.vasilmartsyniuk.consoleapp.dao;
 
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import ua.foxminded.vasilmartsyniuk.consoleapp.model.Course;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
+@Transactional
 public class CourseDao implements Dao<Course> {
 
     @PersistenceContext
@@ -42,7 +42,11 @@ public class CourseDao implements Dao<Course> {
     @Override
     public void create(Course course) {
         try {
-            entityManager.merge(course);
+            Course newCourse = new Course();
+            newCourse.setCourseName(course.getCourseName());
+            newCourse.setCourseDescription(course.getCourseDescription());
+
+            entityManager.persist(newCourse);
         } catch (Exception e) {
             e.printStackTrace();
         }

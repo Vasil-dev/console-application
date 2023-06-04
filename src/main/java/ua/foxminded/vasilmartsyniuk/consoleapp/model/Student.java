@@ -1,7 +1,6 @@
 package ua.foxminded.vasilmartsyniuk.consoleapp.model;
 
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

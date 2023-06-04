@@ -1,6 +1,6 @@
 package ua.foxminded.vasilmartsyniuk.consoleapp.daotests;
 
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.test.context.jdbc.Sql;
 import ua.foxminded.vasilmartsyniuk.consoleapp.dao.StudentDao;
 import ua.foxminded.vasilmartsyniuk.consoleapp.model.Student;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,16 +1,17 @@
 package ua.foxminded.vasilmartsyniuk.consoleapp.dao;
 
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import ua.foxminded.vasilmartsyniuk.consoleapp.model.Group;
 
-import javax.persistence.EntityManager;
+
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
+@Transactional
 public class GroupDao implements Dao<Group> {
 
     @PersistenceContext
@@ -44,7 +45,9 @@ public class GroupDao implements Dao<Group> {
     @Override
     public void create(Group group) {
         try {
-            entityManager.merge(group);
+            Group newGroup = new Group();
+            newGroup.setGroupName(group.getGroupName());
+            entityManager.persist(newGroup);
         } catch (Exception e) {
             e.printStackTrace();
         }
