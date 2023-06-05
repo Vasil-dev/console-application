@@ -55,7 +55,7 @@ public class DataGenerate implements ApplicationRunner {
     private void generateGroups(int numGroups) {
         for (int i = 1; i <= numGroups; i++) {
             String groupName = generateGroupName();
-            final String GENERATE_GROUPS = "INSERT INTO groups (group_id, group_name) VALUES (?, ?)";
+            final String GENERATE_GROUPS = "INSERT INTO cms.groups (group_id, group_name) VALUES (?, ?)";
             jdbcTemplate.update(GENERATE_GROUPS, i, groupName);
         }
     }
@@ -75,7 +75,7 @@ public class DataGenerate implements ApplicationRunner {
     private void generateCourses(int numCourse) {
         for (int i = 1; i <= numCourse; i++) {
             String courseName = COURSES[i - 1];
-            final String GENERATE_COURSES = "INSERT INTO courses (course_id, course_name) VALUES (?, ?)";
+            final String GENERATE_COURSES = "INSERT INTO cms.courses (course_id, course_name) VALUES (?, ?)";
             jdbcTemplate.update(GENERATE_COURSES, i, courseName);
         }
     }
@@ -84,7 +84,7 @@ public class DataGenerate implements ApplicationRunner {
         for (int i = 1; i <= numStudents; i++) {
             String firstName = getFirstName();
             String lastName = getLastName();
-            final String GENERATE_AND_INSERT_STUDENTS = "INSERT INTO students (student_id, first_name, last_name) VALUES (?, ?, ?)";
+            final String GENERATE_AND_INSERT_STUDENTS = "INSERT INTO cms.students (student_id, first_name, last_name) VALUES (?, ?, ?)";
             jdbcTemplate.update(GENERATE_AND_INSERT_STUDENTS, i, firstName, lastName);
         }
     }
@@ -102,15 +102,15 @@ public class DataGenerate implements ApplicationRunner {
     private void assignStudentsToGroups() {
         Random random = new Random();
 
-        val GET_GROUP_BY_ID = "SELECT group_id FROM groups";
+        val GET_GROUP_BY_ID = "SELECT group_id FROM cms.groups";
         List<Integer> groupId = jdbcTemplate.queryForList(GET_GROUP_BY_ID, Integer.class);
 
-        val GET_STUDENT_BY_ID = "SELECT student_id FROM students";
+        val GET_STUDENT_BY_ID = "SELECT student_id FROM cms.students";
         List<Integer> studentId = jdbcTemplate.queryForList(GET_STUDENT_BY_ID, Integer.class);
 
         for (int students : studentId) {
             int groups = groupId.get(random.nextInt(groupId.size()));
-            final String ASSIGN_STUDENTS_TO_GROUPS = "UPDATE students SET group_id = ? WHERE student_id = ?";
+            final String ASSIGN_STUDENTS_TO_GROUPS = "UPDATE cms.students SET group_id = ? WHERE student_id = ?";
             jdbcTemplate.update(ASSIGN_STUDENTS_TO_GROUPS, groups, students);
         }
         System.out.println("Students assigned to groups successfully.");
@@ -119,10 +119,10 @@ public class DataGenerate implements ApplicationRunner {
     private void createStudentCourseRelations() {
         Random random = new Random();
 
-        val GET_COURSES = "SELECT course_id FROM courses";
+        val GET_COURSES = "SELECT course_id FROM cms.courses";
         var courseId = jdbcTemplate.queryForList(GET_COURSES, Integer.class);
 
-        val GET_STUDENTS = "SELECT student_id FROM students";
+        val GET_STUDENTS = "SELECT student_id FROM cms.students";
         var studentId = jdbcTemplate.queryForList(GET_STUDENTS,Integer.class);
 
         for (int students : studentId) {
@@ -133,7 +133,7 @@ public class DataGenerate implements ApplicationRunner {
                 if (!assignedCourseId.contains(courses)) {
                     assignedCourseId.add(courses);
 
-                    String assignStudentsToCourses = "INSERT INTO student_courses (student_id, course_id) VALUES (?, ?)";
+                    String assignStudentsToCourses = "INSERT INTO cms.student_courses (student_id, course_id) VALUES (?, ?)";
                     jdbcTemplate.update(assignStudentsToCourses, students, courses);
                 }
             }
@@ -141,7 +141,7 @@ public class DataGenerate implements ApplicationRunner {
     }
 
     private boolean isDatabaseEmpty() {
-        String countQuery = "SELECT COUNT(*) FROM students";
+        String countQuery = "SELECT COUNT(*) FROM cms.students";
         Integer count = jdbcTemplate.queryForObject(countQuery, Integer.class);
         return count != null && count == 0;
     }

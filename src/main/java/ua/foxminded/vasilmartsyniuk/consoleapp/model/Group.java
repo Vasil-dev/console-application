@@ -7,7 +7,7 @@ import lombok.ToString;
 
 @Entity
 @Setter @Getter @ToString
-@Table(name = "groups")
+@Table(name = "groups", schema = "cms")
 public class Group {
 
     @Id

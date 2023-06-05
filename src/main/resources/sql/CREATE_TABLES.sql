@@ -1,10 +1,12 @@
-CREATE TABLE IF NOT EXISTS groups
+CREATE SCHEMA IF NOT EXISTS cms;
+
+CREATE TABLE IF NOT EXISTS cms.groups
 (
     group_id INT,
     group_name VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS students
+CREATE TABLE IF NOT EXISTS cms.students
 (
     student_id INT,
     group_id INT,
@@ -12,7 +14,7 @@ CREATE TABLE IF NOT EXISTS students
     last_name VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS courses
+CREATE TABLE IF NOT EXISTS cms.courses
 (
     course_id INT,
     course_name VARCHAR(255),
