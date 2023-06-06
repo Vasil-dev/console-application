@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Transactional
 public class CourseDao implements Dao<Course> {
 
     @PersistenceContext
@@ -40,6 +39,7 @@ public class CourseDao implements Dao<Course> {
 
 
     @Override
+    @Transactional
     public void create(Course course) {
         try {
             Course newCourse = new Course();
@@ -54,12 +54,14 @@ public class CourseDao implements Dao<Course> {
 
 
     @Override
+    @Transactional
     public void update(Course course, int courseId) {
        course.setCourseId(courseId);
        entityManager.merge(course);
     }
 
     @Override
+    @Transactional
     public void delete(int courseId) {
         Course course = entityManager.find(Course.class,courseId);
         if (course != null) {

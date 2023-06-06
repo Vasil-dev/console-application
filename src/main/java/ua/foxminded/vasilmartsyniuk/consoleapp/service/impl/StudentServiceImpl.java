@@ -1,5 +1,6 @@
 package ua.foxminded.vasilmartsyniuk.consoleapp.service.impl;
 
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @Transactional
     public void create(Student student) {
         logger.info("Creating student: {}",student);
         studentDao.create(student);

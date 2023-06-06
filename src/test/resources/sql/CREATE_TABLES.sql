@@ -1,17 +1,18 @@
 DROP TABLE IF EXISTS students_courses CASCADE;
 
-DROP TABLE IF EXISTS groups CASCADE ;
+DROP TABLE IF EXISTS cms.groups CASCADE ;
 
-CREATE TABLE groups
+ CREATE SCHEMA cms
+CREATE TABLE cms.groups
 (
     group_id INT,
     group_name VARCHAR(255)
 );
 
 
-DROP TABLE IF EXISTS students CASCADE;
+DROP TABLE IF EXISTS cms.students CASCADE;
 
-CREATE TABLE students
+CREATE TABLE cms.students
 (
     student_id INT,
     group_id INT,
@@ -19,9 +20,9 @@ CREATE TABLE students
     last_name VARCHAR(255)
 );
 
-DROP TABLE IF EXISTS courses CASCADE;
+DROP TABLE IF EXISTS cms.courses CASCADE;
 
-CREATE TABLE courses
+CREATE TABLE cms.courses
 (
     course_id INT,
     course_name VARCHAR(255),

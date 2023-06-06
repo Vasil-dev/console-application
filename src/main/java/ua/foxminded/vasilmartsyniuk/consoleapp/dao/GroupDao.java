@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Transactional
 public class GroupDao implements Dao<Group> {
 
     @PersistenceContext
@@ -43,6 +42,7 @@ public class GroupDao implements Dao<Group> {
 
 
     @Override
+    @Transactional
     public void create(Group group) {
         try {
             Group newGroup = new Group();
@@ -54,12 +54,14 @@ public class GroupDao implements Dao<Group> {
     }
 
     @Override
+    @Transactional
     public void update(Group group, int groupId) {
         group.setGroupId(groupId);
         entityManager.merge(group);
     }
 
     @Override
+    @Transactional
     public void delete(int groupId) {
         Group group = entityManager.find(Group.class, groupId);
         if (group != null) {

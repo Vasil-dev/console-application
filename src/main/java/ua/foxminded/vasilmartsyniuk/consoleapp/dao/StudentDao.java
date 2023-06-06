@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Transactional
 public class StudentDao implements Dao<Student> {
 
     @PersistenceContext
@@ -40,19 +39,8 @@ public class StudentDao implements Dao<Student> {
         return entityManager.createQuery(jpql, Student.class).getResultList();
     }
 
-
-//    @Override
-//    public void create(Student student) {
-//        try {
-//            System.out.println("Persisting student: " + student);
-//            entityManager.persist(student);
-//
-//        } catch (PersistenceException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     @Override
+    @Transactional
     public void create(Student student) {
         try {
             Student newStudent = new Student();
@@ -66,16 +54,15 @@ public class StudentDao implements Dao<Student> {
         }
     }
 
-
-
-
     @Override
+    @Transactional
     public void update(Student student, int studentId) {
         student.setStudentId(studentId);
         entityManager.merge(student);
     }
 
     @Override
+    @Transactional
     public void delete(int studentId) {
         Student student = entityManager.find(Student.class, studentId);
         if (student != null) {
