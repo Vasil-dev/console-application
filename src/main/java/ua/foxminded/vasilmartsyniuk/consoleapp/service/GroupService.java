@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface GroupService {
 
-    Optional<Group> get(int grouptId);
+    Optional<Group> get(int groupId);
 
     List<Group> getAll();
 
